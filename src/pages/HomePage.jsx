@@ -4,6 +4,7 @@ import Input from "../components/Input";
 import { useEffect, useState } from "react";
 import {loadAPIMovies, loadAPIUpcoming} from "../services/loadAPI";
 import Card from "../components/Card";
+import Slider from "../components/Slider";
 
 export default function HomePage() {
   const [movies, setMovies] = useState([]);
@@ -23,7 +24,7 @@ export default function HomePage() {
   
   return (
     <>
-  <div className={styles.header}>HomePage</div>
+    <Slider/>
   <div className= {styles.TitleContainer}>
   <h1>PELICULAS EN CARTELERA</h1>
   </div>
