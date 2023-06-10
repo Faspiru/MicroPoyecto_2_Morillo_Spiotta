@@ -1,0 +1,30 @@
+.Card {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 80vh;
+    border: 2px solid #AE2121;
+    border-radius: 20px;
+    background-color: #1C3144;
+    color: #FFFFFF;
+    justify-content: center;
+    align-items: center;
+    padding: 5%;
+    margin-bottom: 5%;
+}
+
+.Title {
+    font-size: 18px;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+
+img {
+    width: 80%;
+    height: 80%;
+    margin-bottom: 2%;
+}
+
