@@ -3,16 +3,19 @@ import styles from "./RegisterPage.module.css";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import { registerWithEmailAndPassword } from "../firebase/auth-service";
+import { useNavigate } from "react-router";
 
 export default function RegisterPage() {
+  const navigate = useNavigate();
   const onSumbit = async (event) => {
     event.preventDefault();
-    console.log({ formData });
-    await registerWithEmailAndPassword(formData.email, formData.password);
+    const { email, password, ...extraData } = formData;
+    await registerWithEmailAndPassword(email, password, extraData);
+    navigate("/");
   };
 
   const [formData, setFormData] = useState({
-    nombre: "",
+    name: "",
     email: "",
     password: "",
   });
@@ -32,7 +35,7 @@ export default function RegisterPage() {
           <div className={styles.title}>CREAR CUENTA</div>
           <div className={styles.input}>
             <Input
-              name="nombre"
+              name="name"
               labelText="Nombre"
               placeholder="Nombre"
               onChange={handleOnChange}

@@ -1,4 +1,11 @@
-import { doc, collection, getDocs, setDoc } from "firebase/firestore";
+import {
+  doc,
+  collection,
+  getDocs,
+  setDoc,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "./firebaseConfig";
 
 export async function createUserProfile(userId, data) {
@@ -15,8 +22,7 @@ export async function getUserProfile(email) {
       id: item.id,
     }));
 
-    const [user] = users;
-    return user;
+    return users[0];
   } else {
     return null;
   }
