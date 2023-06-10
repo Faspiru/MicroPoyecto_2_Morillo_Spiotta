@@ -1,5 +1,6 @@
 import React from "react";
+import styles from "./HomePage.module.css";
 
 export default function HomePage() {
-  return <h1>HomePage</h1>;
+  return <div className={styles.header}>HomePage</div>;
 }

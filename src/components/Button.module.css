@@ -1,0 +1,48 @@
+.button {
+  padding: 12px 35px;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background-color: #ae2121;
+  border: 2px solid #ffffff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 80ms ease-in;
+
+  &:hover {
+    background-color: #db4242;
+    color: white;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  /* Size de los botones */
+
+  &.large {
+    padding: 16px 36px;
+    font-size: 1.5;
+  }
+
+  &.medium {
+    padding: 12px 28px;
+    font-size: 1.25;
+  }
+
+  &.base {
+    padding: 8px 20px;
+    font-size: 1;
+  }
+
+  &.small {
+    padding: 4px 12px;
+    font-size: 0.75;
+  }
+}
