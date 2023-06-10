@@ -66,7 +66,7 @@ export default function LoginPage() {
         </div>
         <div className={styles.registroButton}>
           <Button href="register" variant="text">
-            No tienes cuenta? Registrate Aqui!
+            Registrate Aqui!
           </Button>
         </div>
       </div>

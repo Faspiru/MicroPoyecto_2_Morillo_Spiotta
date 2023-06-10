@@ -61,7 +61,7 @@ export default function RegisterPage() {
         </form>
         <div className={styles.loginButton}>
           <Button href="login" variant="text">
-            Ya tienes cuenta? Inicia sesion Aqui!
+            Inicia sesion Aqui!
           </Button>
         </div>
       </div>
