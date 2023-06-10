@@ -9,6 +9,7 @@
 }
 
 .card {
+  margin-top: 100px;
   padding: 50px;
   padding-left: 100px;
   padding-right: 100px;
@@ -43,10 +44,11 @@
 .formGoogle {
   display: flex;
   margin-top: 30px;
-  gap: 10px;
+  justify-content: center;
+  margin-bottom: 10px;
 }
 
 .registroButton {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }

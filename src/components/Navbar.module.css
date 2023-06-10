@@ -47,3 +47,14 @@
   height: 50px;
   border-radius: 100px;
 }
+
+.button {
+  background: none;
+  border: solid transparent;
+  color: #ae2121;
+  cursor: pointer;
+}
+
+.button:hover {
+  color: #db4242;
+}

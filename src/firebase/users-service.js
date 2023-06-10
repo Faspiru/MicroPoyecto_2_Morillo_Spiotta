@@ -1,8 +1,8 @@
-import { collection, getDocs, setDoc } from "firebase/firestore";
+import { doc, collection, getDocs, setDoc } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 
 export async function createUserProfile(userId, data) {
-  return setDoc(doc(db, "users", userId, data)); // el string es la coleccion que yo cree en firestore
+  return setDoc(doc(db, "users", userId), data); // el string es la coleccion que yo cree en firestore
 }
 
 export async function getUserProfile(email) {

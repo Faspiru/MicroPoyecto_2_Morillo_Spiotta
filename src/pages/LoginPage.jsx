@@ -2,10 +2,14 @@ import React from "react";
 import Input from "../components/Input";
 import styles from "./LoginPage.module.css";
 import Button from "../components/Button";
-import { Link } from "react-router-dom";
 import googleIcon from "../assets/GoogleIcon.svg";
+import { singInWithGoogle } from "../firebase/auth-service";
 
 export default function LoginPage() {
+  const handleSingInWithGoogle = async () => {
+    await singInWithGoogle();
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.card}>
@@ -23,10 +27,9 @@ export default function LoginPage() {
           <Button>ENVIAR</Button>
         </div>
         <div className={styles.formGoogle}>
-          <div>O inicie sesion con</div>
-          <Link to="#">
-            <img src={googleIcon}></img>
-          </Link>
+          <Button size="small" onClick={handleSingInWithGoogle}>
+            Registrar con Google
+          </Button>
         </div>
         <div className={styles.registroButton}>
           <Button href="register" variant="text">
