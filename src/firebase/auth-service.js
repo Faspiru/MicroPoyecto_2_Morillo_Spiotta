@@ -17,7 +17,7 @@ export const singInWithGoogle = async () => {
       await createUserProfile(result.user.uid, {
         email: result.user.email,
         name: result.user.displayName,
-        age: 0,
+        likedMovies: [],
         // aqui iria mas data del usaurio que deberia tener
       });
     }

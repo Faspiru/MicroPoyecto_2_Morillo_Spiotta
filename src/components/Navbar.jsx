@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Navbar.module.css";
 import Button from "./Button";
 import logoImage from "../assets/MetroMovieLogo.svg";
@@ -33,9 +33,9 @@ export default function Navbar() {
           </button>
         </div>
       ) : (
-        <Button href="login" size="medium">
-          Iniciar Sesion
-        </Button>
+        <Link to="/login">
+          <Button size="medium">Iniciar Sesion</Button>
+        </Link>
       )}
     </div>
   );

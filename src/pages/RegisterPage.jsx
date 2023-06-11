@@ -17,6 +17,7 @@ export default function RegisterPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    likedMovies: [],
     password: "",
   });
 
