@@ -51,11 +51,39 @@ export default function MovieSpecs() {
   const isReleased = currentDate >= movieDate;
 
   async function addingFavorites() {
-    // ...
+    if (user) {
+      const exist = user.likedMovies.includes(movie.id);
+      if (exist) {
+        alert("Ya la pelicula forma parte de sus favoritos");
+      } else {
+        const userRef = doc(db, "users", user.id);
+        await updateDoc(userRef, {
+          likedMovies: arrayUnion(movie.id),
+        });
+        alert("Pelicula agregada a sus favoritos");
+      }
+      console.log(user);
+    } else {
+      alert("Debe registrarse para usar esta funcion");
+    }
   }
 
   async function removeFavorites() {
-    // ...
+    if (user) {
+      const exist = user.likedMovies.includes(movie.id);
+      if (exist) {
+        const userRef = doc(db, "users", user.id);
+        await updateDoc(userRef, {
+          likedMovies: arrayRemove(movie.id),
+        });
+        alert("Pelicula eliminada de sus favoritos");
+      } else {
+        alert("La pelicula no forma parte de sus favoritos");
+      }
+      console.log(user);
+    } else {
+      alert("Debe registrarse para usar esta funcion");
+    }
   }
 
   return (
