@@ -45,6 +45,9 @@ export function getMoviebyId(id) {
 
   return fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, options)
   .then(response => response.json())
-  .then(response => console.log(response))
+  .then(response => {
+    const movie = response;
+    return movie;
+  })
   .catch(err => console.error(err));
 }

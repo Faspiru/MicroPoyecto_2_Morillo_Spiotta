@@ -1,0 +1,30 @@
+.PrincipalContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .Container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  
+  .Container img {
+    max-width: 100%;
+    margin-right: 20px;
+  }
+  
+  @media (max-width: 600px) {
+    .Container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .Container img {
+      margin-right: 0;
+      margin-bottom: 20px;
+    }
+  }
+  
+  
