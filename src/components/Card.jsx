@@ -4,7 +4,6 @@ import { getMoviebyId } from "../services/loadAPI";
 import { useEffect, useState } from "react";
 
 export default function Card({ movie }) {
-  
   const [moviedetails, setMoviedetails] = useState(null);
 
   useEffect(() => {
@@ -25,12 +24,10 @@ export default function Card({ movie }) {
   }
 
   const genres = moviedetails.genres.map((genre) => genre.name).join(", ");
-  const languages = moviedetails.spoken_languages.map((language) => language.name).join(", ");
+  const languages = moviedetails.spoken_languages
+    .map((language) => language.name)
+    .join(", ");
 
-
-  
-
-  
   return (
     <div className={styles.Card}>
       <h2 className={styles.Title}>{movie.title}</h2>
