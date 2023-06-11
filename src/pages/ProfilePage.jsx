@@ -1,23 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./ProfilePage.module.css";
 import { useUser } from "../contexts/UserContext";
 import { getMoviebyId } from "../services/loadAPI";
 import Card from "../components/Card";
 
-export default function () {
+export default function Profile() {
   const { user } = useUser();
   const [movies, setMovies] = useState([]);
 
-  async function operando(likedMovie) {
-    const movie = await getMoviebyId(likedMovie);
-    console.log(movie);
-    movies.push(movie);
-  }
+  useEffect(() => {
+    async function fetchMovies() {
+      if (user) {
+        const moviePromises = user.likedMovies.map((likedMovie) =>
+          getMoviebyId(likedMovie)
+        );
 
-  if (user) {
-    user.likedMovies.map((likedMovie) => operando(likedMovie));
-    console.log(movies);
-  }
+        const movieData = await Promise.all(moviePromises);
+        setMovies(movieData);
+      }
+    }
+
+    fetchMovies();
+  }, [user]);
 
   return (
     <div className={styles.TitleContainer}>
