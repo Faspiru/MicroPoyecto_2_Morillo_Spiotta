@@ -18,7 +18,8 @@ h3 {
   border: #ae2121;
 }
 
-h1,h3{
+h1,
+h3 {
   background-color: #ae2121;
 }
 
@@ -44,17 +45,14 @@ h1,h3{
 }
 
 .buttonContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   margin-top: 10px;
   width: 100%;
-  display: column;
   justify-content: center;
   align-items: center;
   align-content: center;
-}
-
-Button {
-  width: 50%;
-  margin: 10px;
 }
 
 .movieInfoContainer {
@@ -96,5 +94,3 @@ Button {
     margin-top: 20px;
   }
 }
-
-  

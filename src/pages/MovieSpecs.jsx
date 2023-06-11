@@ -89,8 +89,8 @@ export default function MovieSpecs() {
   return (
     <div className={styles.PrincipalContainer}>
       <div className={styles.titlecontainer}>
-      <h1>{movie.title}</h1>
-      <h3>{movie.tagline}</h3>
+        <h1>{movie.title}</h1>
+        <h3>{movie.tagline}</h3>
       </div>
       <div className={styles.Container}>
         <div className={styles.moviePosterContainer}>
@@ -105,13 +105,6 @@ export default function MovieSpecs() {
           <p className={styles.genres}>{genres}</p>
           <p className={styles.languages}>{languages}</p>
           <p className={styles.actors}>Actores: {actors} y más.</p>
-          <div className={styles.release}>
-            {isReleased ? (
-              <Button size="medium">Ver película</Button>
-            ) : (
-              <p>Próximamente / {movie.release_date}</p>
-            )}
-          </div>
           <div className={styles.buttonContainer}>
             <Button size="medium" onClick={addingFavorites}>
               Añadir película a favoritos
@@ -119,6 +112,11 @@ export default function MovieSpecs() {
             <Button size="medium" onClick={removeFavorites}>
               Eliminar película de favoritos
             </Button>
+            {isReleased ? (
+              <Button size="medium">Ver película</Button>
+            ) : (
+              <p>Próximamente / {movie.release_date}</p>
+            )}
           </div>
         </div>
       </div>
@@ -126,3 +124,6 @@ export default function MovieSpecs() {
   );
 }
 
+export function changes() {
+  return changes;
+}
