@@ -16,6 +16,9 @@
   align-items: center;
   padding: 5%;
   margin-bottom: 5%;
+  margin-top: 5%;
+  max-width: 400px;
+  
 }
 
 .Title {

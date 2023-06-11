@@ -34,3 +34,13 @@
   width: 100%;
   background-color: #ae2121;
 }
+
+.SearchInput {
+  border: 1px 1px 1px 1px solid #ae2121;
+}
+
+.SearchContainer {
+  margin-bottom: 20px;
+  margin-left: 20px;
+}
+

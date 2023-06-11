@@ -51,3 +51,20 @@ export function getMoviebyId(id) {
   })
   .catch(err => console.error(err));
 }
+
+export function getCastbyMovie(id) {
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYzEzZWQ3NzcwZDViYzBlY2NmOTE4MWEzNDQxOGYyMiIsInN1YiI6IjY0ODNhNTE4ZTI3MjYwMDBlOGMwMmY2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4jgvr5jqD0GyGGFGxkh4A_NrZHPN7Mdx2EEtapjlIoE'
+    }
+  };
+
+  fetch('https://api.themoviedb.org/3/movie/5000/credits?language=en-US', options)
+  .then(response => response.json())
+  .then(response => {
+    const credits = response.cast;
+  return credits;})
+  .catch(err => console.error(err));
+}
