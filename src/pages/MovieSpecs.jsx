@@ -5,6 +5,7 @@ import Button from "../components/Button";
 import { useUser } from "../contexts/UserContext";
 import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
+import { Link } from "react-router-dom";
 
 export default function MovieSpecs() {
   const [movie, setMovie] = useState(null);
@@ -113,7 +114,9 @@ export default function MovieSpecs() {
               Eliminar película de favoritos
             </Button>
             {isReleased ? (
-              <Button size="medium">Ver película</Button>
+              <Link to="/reserve">
+                <Button size="medium">Reservar película</Button>
+              </Link>
             ) : (
               <p>Próximamente / {movie.release_date}</p>
             )}
