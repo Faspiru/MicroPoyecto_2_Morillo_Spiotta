@@ -61,10 +61,11 @@ export function getCastbyMovie(id) {
     }
   };
 
-  fetch('https://api.themoviedb.org/3/movie/5000/credits?language=en-US', options)
-  .then(response => response.json())
-  .then(response => {
-    const credits = response.cast;
-  return credits;})
-  .catch(err => console.error(err));
+  return fetch(`https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`, options)
+    .then(response => response.json())
+    .then(response => response.cast)
+    .catch(err => {
+      console.error(err);
+      throw err;
+    });
 }
