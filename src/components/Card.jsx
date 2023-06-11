@@ -1,5 +1,6 @@
 import styles from "./Card.module.css"
 import Button from "./Button"
+import { getMoviebyId } from "../services/loadAPI"
 
 export default function Card({ movie }) {
 
@@ -9,7 +10,7 @@ export default function Card({ movie }) {
             
             <img src={'https://image.tmdb.org/t/p/w500' + movie.poster_path} alt={movie.title} />
             <span className={styles.Info}>gbuhrvbrbbevbriug</span>
-            <Button size="small" href={'https://www.themoviedb.org/movie/' + movie.id}>More Info</Button>
+            <Button size="small" onClick={() => getMoviebyId(movie.id)}>More Info</Button>
             
         </div>
     )
