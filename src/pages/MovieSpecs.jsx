@@ -46,11 +46,29 @@ export default function MovieSpecs() {
       if (exist) {
         alert("Ya la pelicula forma parte de sus favoritos");
       } else {
-        const userRef = doc(db, "users");
+        const userRef = doc(db, "users", user.id);
         await updateDoc(userRef, {
           likedMovies: arrayUnion(movie.id),
         });
         alert("Pelicula agregada a sus favoritos");
+      }
+      console.log(user);
+    } else {
+      alert("Debe registrarse para usar esta funcion");
+    }
+  }
+
+  async function removeFavorites() {
+    if (user) {
+      const exist = user.likedMovies.includes(movie.id);
+      if (exist) {
+        const userRef = doc(db, "users", user.id);
+        await updateDoc(userRef, {
+          likedMovies: arrayRemove(movie.id),
+        });
+        alert("Pelicula eliminada de sus favoritos");
+      } else {
+        alert("La pelicula no forma parte de sus favoritos");
       }
       console.log(user);
     } else {
@@ -69,7 +87,10 @@ export default function MovieSpecs() {
         />
         <div className={styles.buttonContainer}>
           <Button size="small" onClick={addingFavorites}>
-            Add movie to favorites
+            Añadir pelicula a favoritos
+          </Button>
+          <Button size="small" onClick={removeFavorites}>
+            Eliminar pelicula de favoritos
           </Button>
         </div>
         <div>
