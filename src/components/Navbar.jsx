@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./Navbar.module.css";
 import Button from "./Button";
+import logoImage from "../assets/MetroMovieLogo.svg";
+import profileLogo from "../assets/profileLogo.svg";
 import { Link } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
 import { logout } from "../firebase/auth-service";
@@ -15,11 +17,16 @@ export default function Navbar() {
 
   return (
     <div className={styles.navbar}>
-      <div className={styles.logo}>MetroMovie Logo</div>
+      <div className={styles.logo}>
+        <Link className={styles.loggedUser} to="/">
+          <img className={styles.image} src={logoImage}></img>Home
+        </Link>
+      </div>
       {user ? (
         <div className={styles.logged}>
           <Link to="/profile" className={styles.loggedUser}>
             {user.name}
+            <img className={styles.imageLogo} src={profileLogo}></img>
           </Link>
           <button className={styles.button} onClick={handleLogout}>
             Cerrar sesion
