@@ -37,7 +37,7 @@ export default createBrowserRouter(
             </PrivateRoute>
           }
         />
-        <Route path="/movieSpec" element={<MovieSpecs />} />
+        <Route path="/movieSpec/:movieId" element={<MovieSpecs />} />
         <Route
           path="/admin"
           element={
