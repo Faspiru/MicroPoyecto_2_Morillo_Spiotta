@@ -12,6 +12,7 @@ export default function ReservePage() {
   const { user } = useUser();
   const [boletosVendidos, setBoletosVendidos] = useState(0);
   const [soldOut, setSoldOut] = useState(false);
+  const [totalBoletosVendidos, setTotalBoletosVendidos] = useState(0);
 
   function extractIdFromRoute() {
     const route = window.location.href;
@@ -26,11 +27,15 @@ export default function ReservePage() {
     const docRef = doc(db, "reserves", movieId);
     const subCollectionRef = collection(docRef, "costumers");
     const docsSnap = await getDocs(subCollectionRef);
+
+    let sumBoletos = 0;
+
     docsSnap.forEach((doc) => {
       const numBoleto = parseInt(doc.data().boletos);
-      console.log(numBoleto);
-      setBoletosVendidos(boletosVendidos + numBoleto);
+      sumBoletos += numBoleto; 
     });
+
+    setBoletosVendidos(sumBoletos);
   }
 
   useEffect(() => {

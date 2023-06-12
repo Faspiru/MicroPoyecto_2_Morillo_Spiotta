@@ -8,6 +8,7 @@ export default function Profile() {
   const { user } = useUser();
   const [movies, setMovies] = useState([]);
 
+
   useEffect(() => {
     async function fetchMovies() {
       if (user) {

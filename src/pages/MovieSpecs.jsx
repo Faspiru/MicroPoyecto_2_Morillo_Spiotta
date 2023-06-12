@@ -62,6 +62,8 @@ export default function MovieSpecs() {
           likedMovies: arrayUnion(movie.id),
         });
         alert("Pelicula agregada a sus favoritos");
+        user.likedMovies.push(movie.id); 
+        updateLikedMovies([...movies]);
       }
       console.log(user);
     } else {
