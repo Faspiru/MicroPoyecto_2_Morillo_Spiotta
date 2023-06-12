@@ -3,7 +3,16 @@ import styles from "./ProfilePage.module.css";
 import { useUser } from "../contexts/UserContext";
 import { getMoviebyId } from "../services/loadAPI";
 import Card from "../components/Card";
-import { loadAPIMovies,loadAPIUpcoming } from "../services/loadAPI";
+import { loadAPIMovies, loadAPIUpcoming } from "../services/loadAPI";
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+  collectionGroup,
+} from "firebase/firestore";
+import { db } from "../firebase/firebaseConfig";
 
 export default function Profile() {
   const { user } = useUser();
@@ -24,7 +33,6 @@ export default function Profile() {
     });
   }, []);
 
-
   useEffect(() => {
     async function fetchMovies() {
       if (user) {
@@ -40,6 +48,31 @@ export default function Profile() {
 
     fetchMovies();
   }, []);
+
+  //Este codigo de abajo fue un intento de guardar todas las reservas de un usuario en un array para mostrarlas en su perfil, pero no nos funciono y nos quedamos sin tiempo para seguir intentandolo :(.
+
+  /* async function getDocs(id, user) {
+    const collectionRef = collection(db, "reserves", `${id}`, "costumers");
+    const costumberQuery = query(collectionRef, where("UserId", "==", user.id));
+    const querySnapshot = await getDocs(costumberQuery);
+
+    querySnapshot.forEach((doc) => {
+      return doc.data();
+    });
+  }
+
+  async function getAllDocuments(movieList, user) {
+    const documentsArray = [];
+
+    movieList.map((movie) => {
+      const dataJson = getDocs(movie.id, user);
+      documentsArray.push(dataJson);
+    });
+
+    console.log(documentsArray);
+  }
+
+  getAllDocuments(movieList, user); */
 
   return (
     <>
