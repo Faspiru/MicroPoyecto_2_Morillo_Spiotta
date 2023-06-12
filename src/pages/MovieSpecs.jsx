@@ -3,7 +3,14 @@ import { getMoviebyId, getCastbyMovie } from "../services/loadAPI";
 import styles from "./MovieSpecs.module.css";
 import Button from "../components/Button";
 import { useUser } from "../contexts/UserContext";
-import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import {
+  getDocs,
+  collection,
+  doc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+} from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { Link } from "react-router-dom";
 
@@ -11,6 +18,8 @@ export default function MovieSpecs() {
   const [movie, setMovie] = useState(null);
   const [cast, setCast] = useState(null);
   const { user } = useUser();
+  const [boletosVendidos, setBoletosVendidos] = useState(0);
+  const [soldOut, setSoldOut] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -37,6 +46,39 @@ export default function MovieSpecs() {
     return id;
   }
 
+  const id = extractIdFromRoute();
+
+  async function gettingDocs(movieId) {
+    const docRef = doc(db, "reserves", movieId);
+    const subCollectionRef = collection(docRef, "costumers");
+    const docsSnap = await getDocs(subCollectionRef);
+
+    let sumBoletos = 0;
+
+    docsSnap.forEach((doc) => {
+      const numBoleto = parseInt(doc.data().boletos);
+      sumBoletos += numBoleto;
+    });
+
+    setBoletosVendidos(sumBoletos);
+  }
+
+  useEffect(() => {
+    async function fetchData() {
+      await gettingDocs(id);
+    }
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (boletosVendidos > 20) {
+      setSoldOut(true);
+    } else {
+      setSoldOut(false);
+      console.log(soldOut);
+    }
+  }, [boletosVendidos]);
+
   if (!movie || !cast) {
     return <div>Loading...</div>;
   }
@@ -62,7 +104,7 @@ export default function MovieSpecs() {
           likedMovies: arrayUnion(movie.id),
         });
         alert("Pelicula agregada a sus favoritos");
-        user.likedMovies.push(movie.id); 
+        user.likedMovies.push(movie.id);
         updateLikedMovies([...movies]);
       }
       console.log(user);
@@ -116,9 +158,13 @@ export default function MovieSpecs() {
               Eliminar película de favoritos
             </Button>
             {isReleased ? (
-              <Link to={`/reserve/${movie.id}`}>
-                <Button size="medium">Reservar película</Button>
-              </Link>
+              soldOut ? (
+                <Button size="medium">SOLD OUT</Button>
+              ) : (
+                <Link to={`/reserve/${movie.id}`}>
+                  <Button size="medium">Reservar película</Button>
+                </Link>
+              )
             ) : (
               <p>Próximamente / {movie.release_date}</p>
             )}

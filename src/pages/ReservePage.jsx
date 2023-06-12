@@ -12,7 +12,6 @@ export default function ReservePage() {
   const { user } = useUser();
   const [boletosVendidos, setBoletosVendidos] = useState(0);
   const [soldOut, setSoldOut] = useState(false);
-  const [totalBoletosVendidos, setTotalBoletosVendidos] = useState(0);
 
   function extractIdFromRoute() {
     const route = window.location.href;
@@ -23,7 +22,7 @@ export default function ReservePage() {
 
   const idMovie = extractIdFromRoute();
 
-  async function gettingDocs(movieId) {
+  /* async function gettingDocs(movieId) {
     const docRef = doc(db, "reserves", movieId);
     const subCollectionRef = collection(docRef, "costumers");
     const docsSnap = await getDocs(subCollectionRef);
@@ -32,20 +31,20 @@ export default function ReservePage() {
 
     docsSnap.forEach((doc) => {
       const numBoleto = parseInt(doc.data().boletos);
-      sumBoletos += numBoleto; 
+      sumBoletos += numBoleto;
     });
 
     setBoletosVendidos(sumBoletos);
-  }
+  } */
 
-  useEffect(() => {
+  /* useEffect(() => {
     async function fetchData() {
       await gettingDocs(idMovie);
     }
     fetchData();
   }, []);
 
-  console.log(boletosVendidos);
+  console.log(boletosVendidos); */
 
   async function creatingSubCollection(movieId, userId, data) {
     const docRef = doc(db, "reserves", movieId, "costumers", userId);
@@ -74,11 +73,16 @@ export default function ReservePage() {
     });
   };
 
-  if (boletosVendidos > 20) {
-    console.log(soldOut);
-  } else {
-    console.log(soldOut);
-  }
+  /* useEffect(() => {
+    if (boletosVendidos > 20) {
+      setSoldOut(true);
+    } else {
+      setSoldOut(false);
+      console.log(soldOut);
+    }
+  }, [boletosVendidos]); */
+
+  /* console.log(soldOut); */
 
   return (
     <div className={styles.container}>
