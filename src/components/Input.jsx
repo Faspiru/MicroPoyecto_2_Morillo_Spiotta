@@ -7,12 +7,17 @@ export default function Input({
   placeholder,
   name,
   onChange,
+  type,
+  max,
+  min,
   ...props
 }) {
   return (
-    <div className={[styles.formGroup, styles.field].join(" ")}>
+    <div className={[styles.formGroup, styles.field].join(" ")} {...props}>
       <input
-        type="text"
+        type={type}
+        max={max}
+        min={min}
         name={name}
         className={styles.formField}
         placeholder={placeholder}

@@ -1,0 +1,45 @@
+* {
+  color: rgb(255, 255, 255);
+}
+
+.container {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  margin-top: 120px;
+  padding: 50px;
+  padding-left: 100px;
+  padding-right: 100px;
+  border-radius: 14px;
+  background: rgb(10, 30, 50);
+  background: radial-gradient(
+    circle,
+    rgba(10, 30, 50, 1) 0%,
+    rgba(4, 46, 91, 1) 100%
+  );
+  box-shadow: 0 0 0 4px #ae2121 inset;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: white;
+}
+
+.inputBottom {
+  margin-bottom: 20px;
+}
+
+.separador {
+  width: 1000px;
+}

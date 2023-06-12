@@ -43,6 +43,7 @@ export default function LoginPage() {
           <div className={styles.title}>INICIAR SESIÓN</div>
           <div className={styles.input}>
             <Input
+              type="email"
               name="email"
               labelText="Email"
               placeholder="Email"
@@ -51,6 +52,7 @@ export default function LoginPage() {
           </div>
           <div className={styles.inputBottom}>
             <Input
+              type="password"
               name="password"
               labelText="Password"
               placeholder="Password"

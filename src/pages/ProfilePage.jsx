@@ -3,14 +3,10 @@ import styles from "./ProfilePage.module.css";
 import { useUser } from "../contexts/UserContext";
 import { getMoviebyId } from "../services/loadAPI";
 import Card from "../components/Card";
-import { changes } from "./MovieSpecs";
 
 export default function Profile() {
   const { user } = useUser();
   const [movies, setMovies] = useState([]);
-
-  const cambios = changes();
-  console.log(cambios);
 
   useEffect(() => {
     async function fetchMovies() {
@@ -26,7 +22,7 @@ export default function Profile() {
     console.log(user.likedMovies);
 
     fetchMovies();
-  }, [cambios]);
+  }, []);
 
   return (
     <>

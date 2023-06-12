@@ -30,7 +30,7 @@ export default createBrowserRouter(
           }
         />
         <Route
-          path="/reserve"
+          path="/reserve/:movieId"
           element={
             <PrivateRoute>
               <ReservePage />

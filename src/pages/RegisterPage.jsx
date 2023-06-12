@@ -36,6 +36,7 @@ export default function RegisterPage() {
           <div className={styles.title}>CREAR CUENTA</div>
           <div className={styles.input}>
             <Input
+              type="text"
               name="name"
               labelText="Nombre"
               placeholder="Nombre"
@@ -44,6 +45,7 @@ export default function RegisterPage() {
           </div>
           <div className={styles.input}>
             <Input
+              type="email"
               name="email"
               labelText="Email"
               placeholder="Email"
@@ -52,6 +54,7 @@ export default function RegisterPage() {
           </div>
           <div className={styles.inputBottom}>
             <Input
+              type="password"
               name="password"
               labelText="Password"
               placeholder="Password"

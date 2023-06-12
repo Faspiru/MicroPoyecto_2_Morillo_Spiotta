@@ -63,3 +63,11 @@ export const logout = async () => {
 };
 
 // Esta de logout creo una funcion en el header y ahi es donde se va a utilizar.
+
+export const registerReserve = async (email, password) => {
+  try {
+    const result = await signInWithEmailAndPassword(auth, email, password);
+  } catch (error) {
+    alert(error);
+  }
+};

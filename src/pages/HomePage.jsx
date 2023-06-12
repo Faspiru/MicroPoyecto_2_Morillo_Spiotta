@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./HomePage.module.css";
 import Input from "../components/Input";
 import { useEffect, useState } from "react";
-import {loadAPIMovies, loadAPIUpcoming} from "../services/loadAPI";
+import { loadAPIMovies, loadAPIUpcoming } from "../services/loadAPI";
 import Card from "../components/Card";
 import Slider from "../components/Slider";
 
@@ -31,14 +31,16 @@ export default function HomePage() {
     <>
       <Slider />
       <div className={styles.SearchContainer}>
-        <Input
-        className= {styles.SearchInput}
-          type="text"
-          labelText="Buscar"
-          placeholder="Busca una pelicula por su titulo"
-          value={searchQuery}
-          onChange={handleSearch}
-        />
+        <div className={[styles.formGroup, styles.field].join(" ")}>
+          <input
+            type="text"
+            className={styles.formField}
+            placeholder="Busca una pelicula por su titulo"
+            value={searchQuery}
+            onChange={handleSearch}
+          />
+          <label className={styles.formLabel}>Buscar</label>
+        </div>
       </div>
       <div className={styles.TitleContainer}>
         <h1>PELICULAS EN CARTELERA</h1>

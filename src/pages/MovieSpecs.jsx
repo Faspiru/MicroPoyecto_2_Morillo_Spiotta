@@ -114,7 +114,7 @@ export default function MovieSpecs() {
               Eliminar película de favoritos
             </Button>
             {isReleased ? (
-              <Link to="/reserve">
+              <Link to={`/reserve/${movie.id}`}>
                 <Button size="medium">Reservar película</Button>
               </Link>
             ) : (
@@ -125,8 +125,4 @@ export default function MovieSpecs() {
       </div>
     </div>
   );
-}
-
-export function changes() {
-  return changes;
 }

@@ -40,7 +40,72 @@
 }
 
 .SearchContainer {
+  display: flex;
+  justify-content: center;
   margin-bottom: 20px;
   margin-left: 20px;
 }
 
+.formGroup {
+  position: relative;
+  padding: 20px 0 0;
+  width: 200px;
+  max-width: 180px;
+}
+
+.formField {
+  font-family: inherit;
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #ffffff;
+  outline: 0;
+  font-size: 17px;
+  color: rgb(255, 255, 255);
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+
+.formField::placeholder {
+  color: transparent;
+}
+
+.formField:placeholder-shown ~ .formLabel {
+  font-size: 17px;
+  cursor: text;
+  top: 20px;
+}
+
+.formLabel {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 17px;
+  color: #ffffff;
+  pointer-events: none;
+}
+
+.formField:focus {
+  padding-bottom: 6px;
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(to right, #ae2121, #db4242);
+  border-image-slice: 1;
+}
+
+.formField:focus ~ .formLabel {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 17px;
+  color: #ae2121;
+  font-weight: 700;
+}
+
+/* reset input */
+.formField:required,
+.formField:invalid {
+  box-shadow: none;
+}
