@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./RegisterPage.module.css";
 import Input from "../components/Input";
 import Button from "../components/Button";
@@ -11,6 +11,7 @@ export default function ReservePage() {
   const navigate = useNavigate();
   const { user } = useUser();
   const [boletosVendidos, setBoletosVendidos] = useState(0);
+  const [soldOut, setSoldOut] = useState(false);
 
   function extractIdFromRoute() {
     const route = window.location.href;
@@ -28,11 +29,16 @@ export default function ReservePage() {
     docsSnap.forEach((doc) => {
       const numBoleto = parseInt(doc.data().boletos);
       console.log(numBoleto);
-      /* setBoletosVendidos(numBoleto); */
+      setBoletosVendidos(boletosVendidos + numBoleto);
     });
   }
 
-  gettingDocs(idMovie);
+  useEffect(() => {
+    async function fetchData() {
+      await gettingDocs(idMovie);
+    }
+    fetchData();
+  }, []);
 
   console.log(boletosVendidos);
 
@@ -63,7 +69,11 @@ export default function ReservePage() {
     });
   };
 
-  console.log(formData);
+  if (boletosVendidos > 20) {
+    console.log(soldOut);
+  } else {
+    console.log(soldOut);
+  }
 
   return (
     <div className={styles.container}>
