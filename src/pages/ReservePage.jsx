@@ -4,12 +4,13 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 import { useUser } from "../contexts/UserContext";
 import { useNavigate } from "react-router";
-import { addDoc, collection, doc, setDoc } from "@firebase/firestore";
+import { addDoc, collection, doc, getDocs, setDoc } from "@firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 
 export default function ReservePage() {
   const navigate = useNavigate();
   const { user } = useUser();
+  const [boletosVendidos, setBoletosVendidos] = useState(0);
 
   function extractIdFromRoute() {
     const route = window.location.href;
@@ -18,12 +19,27 @@ export default function ReservePage() {
     return idMovie;
   }
 
+  const idMovie = extractIdFromRoute();
+
+  async function gettingDocs(movieId) {
+    const docRef = doc(db, "reserves", movieId);
+    const subCollectionRef = collection(docRef, "costumers");
+    const docsSnap = await getDocs(subCollectionRef);
+    docsSnap.forEach((doc) => {
+      const numBoleto = parseInt(doc.data().boletos);
+      console.log(numBoleto);
+      /* setBoletosVendidos(numBoleto); */
+    });
+  }
+
+  gettingDocs(idMovie);
+
+  console.log(boletosVendidos);
+
   async function creatingSubCollection(movieId, userId, data) {
     const docRef = doc(db, "reserves", movieId, "costumers", userId);
     setDoc(docRef, data);
   }
-
-  const idMovie = extractIdFromRoute();
 
   const onSumbit = async (event) => {
     event.preventDefault();
