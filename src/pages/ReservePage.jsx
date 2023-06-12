@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
-import styles from "./RegisterPage.module.css";
+import styles from "./ReservePage.module.css";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import { useUser } from "../contexts/UserContext";
 import { useNavigate } from "react-router";
-import { addDoc, collection, doc, getDocs, setDoc } from "@firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  setDoc,
+  updateDoc,
+} from "@firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 
 export default function ReservePage() {
@@ -12,6 +19,25 @@ export default function ReservePage() {
   const { user } = useUser();
   const [boletosVendidos, setBoletosVendidos] = useState(0);
   const [soldOut, setSoldOut] = useState(false);
+  const [precioBoleto, setPrecioBoleto] = useState(0);
+
+  function randomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const nuevoPrecioBoleto = randomNumber(1000, 5000);
+        setPrecioBoleto(nuevoPrecioBoleto);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
+  }, []);
+
+  console.log(precioBoleto);
 
   function extractIdFromRoute() {
     const route = window.location.href;
@@ -22,30 +48,6 @@ export default function ReservePage() {
 
   const idMovie = extractIdFromRoute();
 
-  /* async function gettingDocs(movieId) {
-    const docRef = doc(db, "reserves", movieId);
-    const subCollectionRef = collection(docRef, "costumers");
-    const docsSnap = await getDocs(subCollectionRef);
-
-    let sumBoletos = 0;
-
-    docsSnap.forEach((doc) => {
-      const numBoleto = parseInt(doc.data().boletos);
-      sumBoletos += numBoleto;
-    });
-
-    setBoletosVendidos(sumBoletos);
-  } */
-
-  /* useEffect(() => {
-    async function fetchData() {
-      await gettingDocs(idMovie);
-    }
-    fetchData();
-  }, []);
-
-  console.log(boletosVendidos); */
-
   async function creatingSubCollection(movieId, userId, data) {
     const docRef = doc(db, "reserves", movieId, "costumers", userId);
     setDoc(docRef, data);
@@ -53,7 +55,15 @@ export default function ReservePage() {
 
   const onSumbit = async (event) => {
     event.preventDefault();
+    const precioF = formData.boletos * precioBoleto;
+    console.log(precioF);
+
+    console.log(formData);
     creatingSubCollection(idMovie, user.id, formData);
+    const docRef = doc(db, "reserves", idMovie, "costumers", user.id);
+    await updateDoc(docRef, {
+      precioTotal: precioF,
+    });
     navigate("/");
   };
 
@@ -63,26 +73,18 @@ export default function ReservePage() {
     cedula: "",
     boletos: 0,
     UserId: user.id,
+    precioTotal: 0,
   });
 
   const handleOnChange = (event) => {
     const { name, value } = event.target;
+    console.log(name);
     setFormData({
       ...formData,
       [name]: value,
     });
+    console.log(formData);
   };
-
-  /* useEffect(() => {
-    if (boletosVendidos > 20) {
-      setSoldOut(true);
-    } else {
-      setSoldOut(false);
-      console.log(soldOut);
-    }
-  }, [boletosVendidos]); */
-
-  /* console.log(soldOut); */
 
   return (
     <div className={styles.container}>
@@ -126,6 +128,9 @@ export default function ReservePage() {
               placeholder="Cantidad Boletos"
               onChange={handleOnChange}
             ></Input>
+          </div>
+          <div className={styles.precioContainer}>
+            <div>Precio de cada boleto: {precioBoleto}$</div>
           </div>
           <Button>ENVIAR</Button>
         </form>
