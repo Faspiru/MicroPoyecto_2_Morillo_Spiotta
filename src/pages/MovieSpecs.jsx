@@ -91,7 +91,7 @@ export default function MovieSpecs() {
 
   const currentDate = new Date();
   const movieDate = new Date(movie.release_date);
-  const isReleased = currentDate >= movieDate;
+  const isReleased = currentDate > movieDate;
 
   async function addingFavorites() {
     if (user) {
@@ -145,11 +145,11 @@ export default function MovieSpecs() {
           />
         </div>
         <div className={styles.movieInfoContainer}>
-          <h4 className={styles.runtime}>{movie.runtime} minutes</h4>
-          <p className={styles.overview}>{movie.overview}</p>
-          <p className={styles.genres}>{genres}</p>
-          <p className={styles.languages}>{languages}</p>
-          <p className={styles.actors}>Actores: {actors} y más.</p>
+          <h4 className={styles.runtime}><strong>Duración: </strong>{movie.runtime} minutos</h4>
+          <p className={styles.overview}><strong>Sinopsis: <br/></strong> {movie.overview}</p>
+          <p className={styles.genres}><strong>Géneros Relacionados: <br/></strong>{genres}</p>
+          <p className={styles.languages}><strong>Lenguajes Disponibles: <br/></strong>{languages}</p>
+          <p className={styles.actors}><strong>Actores Principales <br/></strong> {actors} .</p>
           <div className={styles.buttonContainer}>
             <Button size="medium" onClick={addingFavorites}>
               Añadir película a favoritos
@@ -166,7 +166,7 @@ export default function MovieSpecs() {
                 </Link>
               )
             ) : (
-              <p>Próximamente / {movie.release_date}</p>
+              <p>Próximamnete / {movie.release_date}</p>
             )}
           </div>
         </div>

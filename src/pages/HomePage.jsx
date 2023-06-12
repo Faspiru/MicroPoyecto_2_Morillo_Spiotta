@@ -35,7 +35,7 @@ export default function HomePage() {
           <input
             type="text"
             className={styles.formField}
-            placeholder="Busca una pelicula por su titulo"
+            placeholder="  "
             value={searchQuery}
             onChange={handleSearch}
           />

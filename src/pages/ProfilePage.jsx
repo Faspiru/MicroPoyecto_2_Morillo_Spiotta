@@ -3,10 +3,26 @@ import styles from "./ProfilePage.module.css";
 import { useUser } from "../contexts/UserContext";
 import { getMoviebyId } from "../services/loadAPI";
 import Card from "../components/Card";
+import { loadAPIMovies,loadAPIUpcoming } from "../services/loadAPI";
 
 export default function Profile() {
   const { user } = useUser();
   const [movies, setMovies] = useState([]);
+  const [movieList, setmovieList] = useState([]);
+  const [upcoming, setUpcoming] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    loadAPIMovies().then((movieList) => {
+      setmovieList(movieList);
+    });
+  }, []);
+
+  useEffect(() => {
+    loadAPIUpcoming().then((upcoming) => {
+      setUpcoming(upcoming);
+    });
+  }, []);
 
 
   useEffect(() => {
