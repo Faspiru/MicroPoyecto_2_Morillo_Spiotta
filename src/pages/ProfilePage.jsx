@@ -20,6 +20,7 @@ export default function Profile() {
   const [movieList, setmovieList] = useState([]);
   const [upcoming, setUpcoming] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [reservations, setReservations] = useState([]);
 
   useEffect(() => {
     loadAPIMovies().then((movieList) => {
@@ -74,6 +75,9 @@ export default function Profile() {
 
   getAllDocuments(movieList, user); */
 
+  useEffect(() => {}, []); //En este useEffect traerias el array las pelis reservadas por el usuario
+
+
   return (
     <>
       <div className={styles.TitleContainer}>
@@ -83,6 +87,21 @@ export default function Profile() {
         {movies.map((movie) => (
           <Card key={movie.id} movie={movie} />
         ))}
+      </div>
+      <div className={styles.TitleContainer}>
+        <h1>Reservaciones Activas</h1>
+      </div>
+      <div className={styles.reservations}>
+      {reservations.length > 0 ? (
+          <div>
+            {reservations.map((reservation) => (
+              <ReserveCard key={reservation.id} reservation={reservation} />
+            ))}
+          </div>
+        ) : (
+          <p>No hay reservaciones por el momento.</p>
+        )}
+
       </div>
     </>
   );

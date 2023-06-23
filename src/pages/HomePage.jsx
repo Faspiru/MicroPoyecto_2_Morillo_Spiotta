@@ -1,8 +1,7 @@
 import React from "react";
 import styles from "./HomePage.module.css";
-import Input from "../components/Input";
 import { useEffect, useState } from "react";
-import { loadAPIMovies, loadAPIUpcoming } from "../services/loadAPI";
+import { loadAPIMovies, loadAPIUpcoming, searchMovie } from "../services/loadAPI";
 import Card from "../components/Card";
 import Slider from "../components/Slider";
 
@@ -10,6 +9,8 @@ export default function HomePage() {
   const [movies, setMovies] = useState([]);
   const [upcoming, setUpcoming] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [showUpcoming, setShowUpcoming] = useState(true);
 
   useEffect(() => {
     loadAPIMovies().then((movies) => {
@@ -24,7 +25,18 @@ export default function HomePage() {
   }, []);
 
   const handleSearch = (event) => {
-    setSearchQuery(event.target.value);
+    const searchValue = event.target.value;
+    setSearchQuery(searchValue);
+
+    if (searchValue.trim() !== "") {
+      searchMovie(searchValue).then((movies) => {
+        setFilteredMovies(movies);
+        setShowUpcoming(movies.length === 0);
+      });
+    } else {
+      setFilteredMovies([]);
+      setShowUpcoming(true);
+    }
   };
 
   return (
@@ -46,7 +58,7 @@ export default function HomePage() {
         <h1>PELICULAS EN CARTELERA</h1>
       </div>
       <div className={styles.Movies}>
-        {movies
+        {(filteredMovies.length > 0 ? filteredMovies : movies)
           .filter((movie) =>
             movie.title.toLowerCase().includes(searchQuery.toLowerCase())
           )
@@ -54,18 +66,23 @@ export default function HomePage() {
             <Card key={movie.id} movie={movie} />
           ))}
       </div>
-      <div className={styles.TitleContainer}>
-        <h1>PROXIMOS ESTRENOS</h1>
-      </div>
-      <div className={styles.Movies}>
-        {upcoming
-          .filter((up) =>
-            up.title.toLowerCase().includes(searchQuery.toLowerCase())
-          )
-          .map((up) => (
-            <Card key={up.id} movie={up} />
-          ))}
-      </div>
+      {showUpcoming && (
+        <div>
+          <div className={styles.TitleContainer}>
+            <h1>PROXIMOS ESTRENOS</h1>
+          </div>
+          <div className={styles.Movies}>
+            {upcoming
+              .filter((up) =>
+                up.title.toLowerCase().includes(searchQuery.toLowerCase())
+              )
+              .map((up) => (
+                <Card key={up.id} movie={up} />
+              ))}
+          </div>
+        </div>
+      )}
     </>
   );
 }
+
