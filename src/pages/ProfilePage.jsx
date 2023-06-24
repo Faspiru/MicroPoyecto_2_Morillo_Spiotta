@@ -4,22 +4,15 @@ import { useUser } from "../contexts/UserContext";
 import { getMoviebyId } from "../services/loadAPI";
 import Card from "../components/Card";
 import { loadAPIMovies, loadAPIUpcoming } from "../services/loadAPI";
-import {
-  getFirestore,
-  collection,
-  query,
-  where,
-  getDocs,
-  collectionGroup,
-} from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
+import ReserveCard from "../components/ReserveCard";
 
 export default function Profile() {
   const { user } = useUser();
   const [movies, setMovies] = useState([]);
   const [movieList, setmovieList] = useState([]);
   const [upcoming, setUpcoming] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
   const [reservations, setReservations] = useState([]);
 
   useEffect(() => {
@@ -48,7 +41,7 @@ export default function Profile() {
     console.log(user.likedMovies);
 
     fetchMovies();
-  }, []);
+  }, [user]);
 
   async function getUserProfile(userId) {
     const userQuery = query(
@@ -61,39 +54,13 @@ export default function Profile() {
     const users = results.docs.map((item) => ({
       ...item.data(),
     }));
-    console.log(users);
-
-    return users;
+    setReservations(users);
+    console.log(reservations);
   }
 
-  getUserProfile(user.id);
-
-  //Este codigo de abajo fue un intento de guardar todas las reservas de un usuario en un array para mostrarlas en su perfil, pero no nos funciono y nos quedamos sin tiempo para seguir intentandolo :(.
-
-  /* async function getDocs(id, user) {
-    const collectionRef = collection(db, "reserves", `${id}`, "costumers");
-    const costumberQuery = query(collectionRef, where("UserId", "==", user.id));
-    const querySnapshot = await getDocs(costumberQuery);
-
-    querySnapshot.forEach((doc) => {
-      return doc.data();
-    });
-  }
-
-  async function getAllDocuments(movieList, user) {
-    const documentsArray = [];
-
-    movieList.map((movie) => {
-      const dataJson = getDocs(movie.id, user);
-      documentsArray.push(dataJson);
-    });
-
-    console.log(documentsArray);
-  }
-
-  getAllDocuments(movieList, user); */
-
-  useEffect(() => {}, []); //En este useEffect traerias el array las pelis reservadas por el usuario
+  useEffect(() => {
+    getUserProfile(user.id);
+  }, []);
 
   return (
     <>
@@ -106,13 +73,16 @@ export default function Profile() {
         ))}
       </div>
       <div className={styles.TitleContainer}>
-        <h1>Reservaciones Activas</h1>
+        <h1>RESERVACIONES ACTIVAS</h1>
       </div>
-      <div className={styles.reservations}>
+      <div>
         {reservations.length > 0 ? (
-          <div>
+          <div className={styles.reservations}>
             {reservations.map((reservation) => (
-              <ReserveCard key={reservation.id} reservation={reservation} />
+              <ReserveCard
+                key={reservation.reserveId}
+                reservation={reservation}
+              />
             ))}
           </div>
         ) : (

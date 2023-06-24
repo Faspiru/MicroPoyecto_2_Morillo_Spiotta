@@ -105,7 +105,7 @@ export default function MovieSpecs() {
         });
         alert("Pelicula agregada a sus favoritos");
         user.likedMovies.push(movie.id);
-        updateLikedMovies([...movies]);
+        //updateLikedMovies([...movie]);
       }
       console.log(user);
     } else {
@@ -145,11 +145,34 @@ export default function MovieSpecs() {
           />
         </div>
         <div className={styles.movieInfoContainer}>
-          <h4 className={styles.runtime}><strong>Duración: </strong>{movie.runtime} minutos</h4>
-          <p className={styles.overview}><strong>Sinopsis: <br/></strong> {movie.overview}</p>
-          <p className={styles.genres}><strong>Géneros Relacionados: <br/></strong>{genres}</p>
-          <p className={styles.languages}><strong>Lenguajes Disponibles: <br/></strong>{languages}</p>
-          <p className={styles.actors}><strong>Actores Principales <br/></strong> {actors} .</p>
+          <h4 className={styles.runtime}>
+            <strong>Duración: </strong>
+            {movie.runtime} minutos
+          </h4>
+          <p className={styles.overview}>
+            <strong>
+              Sinopsis: <br />
+            </strong>{" "}
+            {movie.overview}
+          </p>
+          <p className={styles.genres}>
+            <strong>
+              Géneros Relacionados: <br />
+            </strong>
+            {genres}
+          </p>
+          <p className={styles.languages}>
+            <strong>
+              Lenguajes Disponibles: <br />
+            </strong>
+            {languages}
+          </p>
+          <p className={styles.actors}>
+            <strong>
+              Actores Principales <br />
+            </strong>{" "}
+            {actors} .
+          </p>
           <div className={styles.buttonContainer}>
             <Button size="medium" onClick={addingFavorites}>
               Añadir película a favoritos

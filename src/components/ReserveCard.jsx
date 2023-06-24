@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import styles from "./Card.module.css";
-import Button from "./Button";
+import styles from "./ReserveCard.module.css";
 import { getMoviebyId } from "../services/loadAPI";
-import { db } from "../firebase/firebaseConfig";
-import { doc, getDoc } from "@firebase/firestore";
+import Button from "./Button";
 
 export default function ReserveCard({ reservation }) {
   const [moviedetails, setMoviedetails] = useState(null);
@@ -30,12 +28,19 @@ export default function ReserveCard({ reservation }) {
       <h2 className={styles.Title}>{moviedetails.title}</h2>
 
       <img
+        className={styles.img}
         src={"https://image.tmdb.org/t/p/w500" + moviedetails.poster_path}
         alt={moviedetails.title}
       />
-      <span className={styles.Info}>Cantidad de boletos: {reservation.boletos}</span>
+      <span className={styles.Info}>
+        Cantidad de boletos: {reservation.boletos}
+      </span>
       <span className={styles.Info}>Nombre: {reservation.name}</span>
       <span className={styles.Info}>Email: {reservation.email}</span>
+      <span className={styles.Info}>Cedula: {reservation.cedula}</span>
+      <span className={styles.Info}>
+        Precio Total: {reservation.precioTotal}
+      </span>
     </div>
   );
 }

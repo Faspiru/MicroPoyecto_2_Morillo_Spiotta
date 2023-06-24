@@ -64,6 +64,7 @@ export default function ReservePage() {
     const docRef = doc(db, "reserves", reserveRef.id);
     await updateDoc(docRef, {
       precioTotal: precioF,
+      reserveId: reserveRef.id,
     });
     navigate("/");
   };
@@ -76,6 +77,7 @@ export default function ReservePage() {
     userId: user.id,
     movieId: idMovie,
     precioTotal: 0,
+    reserveId: "",
   });
 
   const handleOnChange = (event) => {
