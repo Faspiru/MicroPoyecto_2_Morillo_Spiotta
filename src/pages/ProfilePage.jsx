@@ -50,6 +50,24 @@ export default function Profile() {
     fetchMovies();
   }, []);
 
+  async function getUserProfile(userId) {
+    const userQuery = query(
+      collection(db, "reserves"),
+      where("userId", "==", userId)
+    );
+    console.log(user.id);
+    const results = await getDocs(userQuery);
+    //console.log(results.docs);
+    const users = results.docs.map((item) => ({
+      ...item.data(),
+    }));
+    console.log(users);
+
+    return users;
+  }
+
+  getUserProfile(user.id);
+
   //Este codigo de abajo fue un intento de guardar todas las reservas de un usuario en un array para mostrarlas en su perfil, pero no nos funciono y nos quedamos sin tiempo para seguir intentandolo :(.
 
   /* async function getDocs(id, user) {
@@ -77,7 +95,6 @@ export default function Profile() {
 
   useEffect(() => {}, []); //En este useEffect traerias el array las pelis reservadas por el usuario
 
-
   return (
     <>
       <div className={styles.TitleContainer}>
@@ -92,7 +109,7 @@ export default function Profile() {
         <h1>Reservaciones Activas</h1>
       </div>
       <div className={styles.reservations}>
-      {reservations.length > 0 ? (
+        {reservations.length > 0 ? (
           <div>
             {reservations.map((reservation) => (
               <ReserveCard key={reservation.id} reservation={reservation} />
@@ -101,7 +118,6 @@ export default function Profile() {
         ) : (
           <p>No hay reservaciones por el momento.</p>
         )}
-
       </div>
     </>
   );

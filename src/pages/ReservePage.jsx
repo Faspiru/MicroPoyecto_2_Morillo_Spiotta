@@ -48,10 +48,10 @@ export default function ReservePage() {
 
   const idMovie = extractIdFromRoute();
 
-  async function creatingSubCollection(movieId, userId, data) {
+  /* async function creatingSubCollection(movieId, userId, data) {
     const docRef = doc(db, "reserves", movieId, "costumers", userId);
     setDoc(docRef, data);
-  }
+  } */
 
   const onSumbit = async (event) => {
     event.preventDefault();
@@ -59,8 +59,9 @@ export default function ReservePage() {
     console.log(precioF);
 
     console.log(formData);
-    creatingSubCollection(idMovie, user.id, formData);
-    const docRef = doc(db, "reserves", idMovie, "costumers", user.id);
+    const reservesRef = collection(db, "reserves");
+    const reserveRef = await addDoc(reservesRef, formData);
+    const docRef = doc(db, "reserves", reserveRef.id);
     await updateDoc(docRef, {
       precioTotal: precioF,
     });
@@ -72,7 +73,8 @@ export default function ReservePage() {
     email: "",
     cedula: "",
     boletos: 0,
-    UserId: user.id,
+    userId: user.id,
+    movieId: idMovie,
     precioTotal: 0,
   });
 
