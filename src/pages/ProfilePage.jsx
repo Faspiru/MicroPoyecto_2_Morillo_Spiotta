@@ -41,7 +41,7 @@ export default function Profile() {
     console.log(user.likedMovies);
 
     fetchMovies();
-  }, [user]);
+  }, []);
 
   async function getUserProfile(userId) {
     const userQuery = query(
